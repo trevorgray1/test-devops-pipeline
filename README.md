@@ -1,6 +1,6 @@
 # DevOps Learning Pipeline
 
-This repository is designed as a hands-on learning environment for DevOps practices and tools. It provides a structured approach to understanding various aspects of the DevOps pipeline, from continuous integration to deployment and monitoring.
+This repository is designed as a hands-on learning environment for DevOps practices and tools. It provides a structured approach to understanding various aspects of the DevOps pipeline, from continuous integration to deployment, monitoring, and artifact management.
 
 ## Project Structure
 
