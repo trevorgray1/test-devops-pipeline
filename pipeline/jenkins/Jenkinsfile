@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    
+    environment {
+        DOCKER_IMAGE = 'sample-app'
+        DOCKER_TAG = "${env.BUILD_NUMBER}"
+    }
+    
+    stages {
+        stage('Test') {
+            steps {
+                sh '''
+                    cd sample-app
+                    python -m pip install --upgrade pip
+                    pip install -r requirements.txt
+                    python -m pytest
+                '''
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ./sample-app"
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                echo 'Add your deployment steps here'
+            }
+        }
+    }
+    
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
