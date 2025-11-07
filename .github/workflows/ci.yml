@@ -57,5 +57,10 @@ jobs:
     - name: Tag image for Cloudsmith
       run: docker tag sample-app:${{ github.sha }} docker.cloudsmith.io/${{ secrets.CLOUDSMITH_OWNER }}/${{ secrets.CLOUDSMITH_REPO }}:${{ github.sha }}
 
+    - name: Debug Cloudsmith owner/repo
+      run: |
+        echo "Cloudsmith Owner: ${{ secrets.CLOUDSMITH_OWNER }}"
+        echo "Cloudsmith Repo: ${{ secrets.CLOUDSMITH_REPO }}"
+
     - name: Push image to Cloudsmith
       run: docker push docker.cloudsmith.io/${{ secrets.CLOUDSMITH_OWNER }}/${{ secrets.CLOUDSMITH_REPO }}:${{ github.sha }}
