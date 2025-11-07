@@ -262,4 +262,4 @@ imagePullSecrets:
 - name: cloudsmith-registry-secret
 ```
 
-Security reminder: never commit API keys or secrets to the repository. Use GitHub Secrets or your CI provider's secret store.
+Security reminder: never commit API keys or secrets to the repository. Use GitHub Secrets or your CI provider's secret store.# Trigger Cloudsmith test
