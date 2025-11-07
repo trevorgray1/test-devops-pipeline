@@ -267,3 +267,4 @@ Security reminder: never commit API keys or secrets to the repository. Use GitHu
 # Another Cloudsmith workflow trigger
 # Cloudsmith write permission test
 # Another test trigger
+# Cloudsmith repo name test
