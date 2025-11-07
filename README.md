@@ -263,3 +263,4 @@ imagePullSecrets:
 ```
 
 Security reminder: never commit API keys or secrets to the repository. Use GitHub Secrets or your CI provider's secret store.# Trigger Cloudsmith test
+# Trigger Cloudsmith workflow again
