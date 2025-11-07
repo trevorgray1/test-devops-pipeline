@@ -52,7 +52,7 @@ jobs:
         docker build -t sample-app:latest -t sample-app:${{ github.sha }} ./sample-app
 
     - name: Push Docker image to Cloudsmith
-      uses: cloudsmith-io/action@v0.14.0
+      uses: cloudsmith-io/action@v0.6.14
       with:
         api-key: ${{ secrets.CLOUDSMITH_API_KEY }}
         owner: ${{ secrets.CLOUDSMITH_OWNER }}
