@@ -1,3 +1,4 @@
+# Trigger pipeline: dummy comment
 name: CI Pipeline
 
 on:
