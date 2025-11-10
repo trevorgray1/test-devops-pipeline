@@ -65,5 +65,4 @@ jobs:
         echo "Image Tag: docker.cloudsmith.io/${{ secrets.CLOUDSMITH_OWNER }}/${{ secrets.CLOUDSMITH_REPO }}/sample-app:${{ github.sha }}"
 
     - name: Push image to Cloudsmith
-      #run: docker push docker.cloudsmith.io/${{ secrets.CLOUDSMITH_OWNER }}/${{ secrets.CLOUDSMITH_REPO }}/sample-app:${{ github.sha }}
-      run: docker push docker.cloudsmith.io/tgray/test-repo2/sample-app:latest
+      run: docker push docker.cloudsmith.io/${{ secrets.CLOUDSMITH_OWNER }}/${{ secrets.CLOUDSMITH_REPO }}/sample-app:${{ github.sha }}
