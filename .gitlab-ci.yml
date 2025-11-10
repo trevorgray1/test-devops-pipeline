@@ -44,4 +44,4 @@ publish:
     CLOUDSMITH_OWNER: "trevor-gray"
     CLOUDSMITH_REPO: "test-repo1"
     CLOUDSMITH_API_KEY: "$CLOUDSMITH_API_KEY"
-    #update with your actual Cloudsmith API key in GitLab CI/CD variables settingss
+  #update with your actual Cloudsmith API key in GitLab CI/CD variables settingss
