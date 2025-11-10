@@ -42,4 +42,4 @@ publish:
     - build
   only:
     - main
-  #Set CLOUDSMITH_OWNER, CLOUDSMITH_REPO, CLOUDSMITH_API_KEY in GitLab CI/CD > Settings > Variables
+  # Set CLOUDSMITH_OWNER, CLOUDSMITH_REPO, CLOUDSMITH_API_KEY in GitLab CI/CD > Settings > Variables
