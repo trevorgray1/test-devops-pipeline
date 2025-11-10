@@ -24,7 +24,6 @@ build:
     - docker:dind
   script:
     - docker build -t sample-app:latest ./sample-app
-    - docker tag sample-app:latest docker.cloudsmith.io/$CLOUDSMITH_OWNER/$CLOUDSMITH_REPO/sample-app:latest
   artifacts:
     paths:
       - sample-app/Dockerfile
@@ -33,12 +32,10 @@ build:
 
 publish:
   stage: publish
-  image: docker:latest
-  services:
-    - docker:dind
+  image: python:3.9
   script:
-    - echo "$CLOUDSMITH_ENTITLEMENT_TOKEN" | docker login docker.cloudsmith.io -u "cloudsmith" --password-stdin
-    - docker push docker.cloudsmith.io/$CLOUDSMITH_OWNER/$CLOUDSMITH_REPO/sample-app:latest
+    - pip install cloudsmith-cli
+    - cloudsmith push docker $CLOUDSMITH_OWNER/$CLOUDSMITH_REPO sample-app:latest
   dependencies:
     - build
   only:
