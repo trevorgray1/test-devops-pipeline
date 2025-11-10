@@ -56,13 +56,13 @@ jobs:
       run: echo "${{ secrets.CLOUDSMITH_API_KEY }}" | docker login docker.cloudsmith.io -u "${{ secrets.CLOUDSMITH_OWNER }}" --password-stdin
 
     - name: Tag image for Cloudsmith
-      run: docker tag sample-app:${{ github.sha }} docker.cloudsmith.io/${{ secrets.CLOUDSMITH_OWNER }}/${{ secrets.CLOUDSMITH_REPO }}/sample-app:${{ github.sha }}
+      run: docker tag sample-app:${{ github.sha }} docker.cloudsmith.io/trevor-gray/test-repo1/sample-app:${{ github.sha }}
 
     - name: Debug Cloudsmith owner/repo
       run: |
-        echo "Cloudsmith Owner: ${{ secrets.CLOUDSMITH_OWNER }}"
-        echo "Cloudsmith Repo: ${{ secrets.CLOUDSMITH_REPO }}"
-        echo "Image Tag: docker.cloudsmith.io/${{ secrets.CLOUDSMITH_OWNER }}/${{ secrets.CLOUDSMITH_REPO }}/sample-app:${{ github.sha }}"
+        echo "Cloudsmith Owner: trevor-gray"
+        echo "Cloudsmith Repo: test-repo1"
+        echo "Image Tag: docker.cloudsmith.io/trevor-gray/test-repo1/sample-app:${{ github.sha }}"
 
     - name: Push image to Cloudsmith
-      run: docker push docker.cloudsmith.io/${{ secrets.CLOUDSMITH_OWNER }}/${{ secrets.CLOUDSMITH_REPO }}/sample-app:${{ github.sha }}
+      run: docker push docker.cloudsmith.io/trevor-gray/test-repo1/sample-app:${{ github.sha }}
