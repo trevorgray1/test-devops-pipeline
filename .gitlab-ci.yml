@@ -17,30 +17,16 @@ test:
     paths:
       - sample-app/testpkg/__pycache__/
 
-build:
-  stage: build
+docker-publish:
+  stage: publish
   image: docker:latest
   services:
     - docker:dind
   script:
     - docker build -t sample-app:latest ./sample-app
     - docker tag sample-app:latest docker.cloudsmith.io/$CLOUDSMITH_OWNER/$CLOUDSMITH_REPO/sample-app:latest
-  artifacts:
-    paths:
-      - sample-app/Dockerfile
-  dependencies:
-    - test
-
-publish:
-  stage: publish
-  image: docker:latest
-  services:
-    - docker:dind
-  script:
     - echo "$CLOUDSMITH_API_KEY" | docker login docker.cloudsmith.io -u "$CLOUDSMITH_OWNER" --password-stdin
     - docker push docker.cloudsmith.io/$CLOUDSMITH_OWNER/$CLOUDSMITH_REPO/sample-app:latest
-  dependencies:
-    - build
   only:
     - main
   #Set CLOUDSMITH_OWNER, CLOUDSMITH_REPO, CLOUDSMITH_API_KEY in GitLab CI/CD > Settings > Variables
