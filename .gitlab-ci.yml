@@ -37,7 +37,7 @@ publish:
   services:
     - docker:dind
   script:
-  - echo "$CLOUDSMITH_ENTITLEMENT_TOKEN" | docker login docker.cloudsmith.io -u "cloudsmith" --password-stdin
+    - echo "$CLOUDSMITH_ENTITLEMENT_TOKEN" | docker login docker.cloudsmith.io -u "cloudsmith" --password-stdin
     - docker push docker.cloudsmith.io/$CLOUDSMITH_OWNER/$CLOUDSMITH_REPO/sample-app:latest
   dependencies:
     - build
