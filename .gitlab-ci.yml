@@ -19,25 +19,26 @@ test:
 
 build:
   stage: build
-  image: python:3.9
+  image: docker:latest
+  services:
+    - docker:dind
   script:
-    - cd sample-app/testpkg
-    - python3 -m pip install --upgrade setuptools wheel
-    - python3 setup.py sdist bdist_wheel
+    - docker build -t sample-app:latest ./sample-app
+    - docker tag sample-app:latest docker.cloudsmith.io/$CLOUDSMITH_OWNER/$CLOUDSMITH_REPO/sample-app:latest
   artifacts:
     paths:
-      - sample-app/testpkg/dist/
+      - sample-app/Dockerfile
   dependencies:
     - test
 
 publish:
   stage: publish
-  image: python:3.9
+  image: docker:latest
+  services:
+    - docker:dind
   script:
-    - pip install cloudsmith-cli
-    - cd sample-app/testpkg
-    - cloudsmith push python $CLOUDSMITH_OWNER/$CLOUDSMITH_REPO dist/*.whl
-    - cloudsmith push python $CLOUDSMITH_OWNER/$CLOUDSMITH_REPO dist/*.tar.gz
+  - echo "$CLOUDSMITH_ENTITLEMENT_TOKEN" | docker login docker.cloudsmith.io -u "cloudsmith" --password-stdin
+    - docker push docker.cloudsmith.io/$CLOUDSMITH_OWNER/$CLOUDSMITH_REPO/sample-app:latest
   dependencies:
     - build
   only:
