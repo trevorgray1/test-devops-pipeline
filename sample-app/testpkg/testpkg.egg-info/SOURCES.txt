@@ -1,0 +1,7 @@
+MANIFEST.in
+README.md
+setup.py
+testpkg.egg-info/PKG-INFO
+testpkg.egg-info/SOURCES.txt
+testpkg.egg-info/dependency_links.txt
+testpkg.egg-info/top_level.txt

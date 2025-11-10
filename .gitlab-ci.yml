@@ -11,37 +11,35 @@ test:
   script:
     - python -m pip install --upgrade pip
     - pip install -r sample-app/requirements.txt
-    - cd sample-app
-    - python -m pytest
+    - cd sample-app/testpkg
+    - python -m pytest test_testpkg.py
   artifacts:
     paths:
-      - sample-app/__pycache__/
+      - sample-app/testpkg/__pycache__/
 
 build:
   stage: build
-  image: docker:latest
-  services:
-    - docker:dind
+  image: python:3.9
   script:
-    - docker build -t sample-app:latest ./sample-app
+    - cd sample-app/testpkg
+    - python3 -m pip install --upgrade setuptools wheel
+    - python3 setup.py sdist bdist_wheel
+  artifacts:
+    paths:
+      - sample-app/testpkg/dist/
   dependencies:
     - test
 
 publish:
   stage: publish
-  image: docker:latest
-  services:
-    - docker:dind
+  image: python:3.9
   script:
-    - echo "$CLOUDSMITH_API_KEY" | docker login docker.cloudsmith.io -u "$CLOUDSMITH_OWNER" --password-stdin
-    - docker tag sample-app:latest docker.cloudsmith.io/$CLOUDSMITH_OWNER/$CLOUDSMITH_REPO/sample-app:latest
-    - docker push docker.cloudsmith.io/$CLOUDSMITH_OWNER/$CLOUDSMITH_REPO/sample-app:latest
+    - pip install cloudsmith-cli
+    - cd sample-app/testpkg
+    - cloudsmith push python $CLOUDSMITH_OWNER/$CLOUDSMITH_REPO dist/*.whl
+    - cloudsmith push python $CLOUDSMITH_OWNER/$CLOUDSMITH_REPO dist/*.tar.gz
   dependencies:
     - build
   only:
     - main
-  variables:
-    CLOUDSMITH_OWNER: "trevor-gray"
-    CLOUDSMITH_REPO: "test-repo1"
-    CLOUDSMITH_API_KEY: "$CLOUDSMITH_API_KEY"
-  # update with your actual Cloudsmith API key in GitLab CI/CD variables settingss
+  # Set CLOUDSMITH_OWNER, CLOUDSMITH_REPO, CLOUDSMITH_API_KEY in GitLab CI/CD > Settings > Variables
