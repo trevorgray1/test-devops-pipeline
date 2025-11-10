@@ -65,4 +65,4 @@ jobs:
         echo "Image Tag: docker.cloudsmith.io/trevor-gray/test-repo1/sample-app:${{ github.sha }}"
 
     - name: Push image to Cloudsmith
-      run: docker push docker.cloudsmith.io/trevor-gray/test-repo1/sample-app:${{ github.sha }}
+      run: docker push docker.cloudsmith.io/trevor-gray/test-repo1/sample-app:latest
