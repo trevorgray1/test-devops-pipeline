@@ -1,32 +1,3 @@
-# GitLab CI/CD pipeline for sample-app
-
-stages:
-  - test
-  - build
-  - publish
-
 test:
-  stage: test
-  image: python:3.9
-  script:
-    - python -m pip install --upgrade pip
-    - pip install -r sample-app/requirements.txt
-    - cd sample-app/testpkg
-    - python -m pytest test_testpkg.py
-  artifacts:
-    paths:
-      - sample-app/testpkg/__pycache__/
-
 docker-publish:
-  stage: publish
-  image: docker:latest
-  services:
-    - docker:dind
-  script:
-    - docker build -t sample-app:latest ./sample-app
-    - docker tag sample-app:latest docker.cloudsmith.io/tgray/$CLOUDSMITH_REPO/sample-app:latest
-    - echo "$CLOUDSMITH_API_KEY" | docker login docker.cloudsmith.io -u "tgray" --password-stdin
-    - docker push docker.cloudsmith.io/tgray/$CLOUDSMITH_REPO/sample-app:latest
-  only:
-    - main
-  #Set CLOUDSMITH_OWNER, CLOUDSMITH_REPO, CLOUDSMITH_API_KEY in GitLab CI/CD > Settings > Variables
+
