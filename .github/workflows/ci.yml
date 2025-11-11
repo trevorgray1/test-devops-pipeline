@@ -47,11 +47,12 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t sample-app:latest -t sample-app:${{ github.sha }} ./sample-app
-      - name: Install Cloudsmith CLI
-        run: pip install cloudsmith-cli
-      - name: Authenticate to Cloudsmith with OIDC
-        run: |
-          cloudsmith login --oidc
+      - name: Authenticate with Cloudsmith via OIDC
+        uses: cloudsmith-io/cloudsmith-cli-action@v1.0.3
+        with:
+          oidc-namespace: 'tgray'
+          oidc-service-slug: 'github-actions-0ahv'
+          oidc-auth-only: 'false'
       - name: Tag image for Cloudsmith
         run: docker tag sample-app:latest docker.cloudsmith.io/tgray/test-repo1/sample-app:latest
       - name: Push image to Cloudsmith
